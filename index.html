@@ -8,12 +8,22 @@
     <title>CPW2: Web Storage</title>
   </head>
   <body onload="load()">
+
+    <label for="font">Fonte: </label>
+      <select name="font" id="font" onblur="changeFont()">
+        <option value="Arial">Arial</option>
+        <option value="Monaco">Monaco</option>
+        <option value="Bradley Hand">Bradley Hand</option>
+      </select>
+    <br />
+
     <p id="text">Web storage</p>
 
     <label for="color">Cor do fundo: </label>
     <input type="color" id="color" onblur="changeColor()" />
     <br />
-    <label for="font">Fonte do título do fundo: </label>
+    <label for="font" id="nomeFonte"></label>
+    
     <!--
       1 - Implemente um HTML select para trocar a fonte do texto Web Storage que, nesse projeto,
       está contido em um parágrafo. Algumas regras devem ser observadas:
@@ -38,6 +48,12 @@
        * Troca a fonte do elemento onde o id é "text"
        */
       function changeFont() {
+        let inputFont = document.getElementById("font");
+        document.getElementById("text").style.fontFamily=inputFont.value;
+        document.getElementById("nomeFonte").innerHTML="Fonte do título do fundo: " + inputFont.value;
+  
+        // Armazena no localStorage
+        localStorage.setItem("font", inputFont.value);
         /**
          * 2 - Implemente o corpo do método `changeFont`. Este método deve ser capaz
          * de trocar a fonte do texto `Web Storage` e também salvar o valor
@@ -51,6 +67,7 @@
        */
       function load() {
         document.body.style.backgroundColor = localStorage.getItem("color");
+        document.body.style.fontFamily = localStorage.getItem("font");
         /**
          * 3 - Altere o método `load` para recuperar o nome da fonte do *localStorage* e
          * estilizar o texto `Web Storage`
